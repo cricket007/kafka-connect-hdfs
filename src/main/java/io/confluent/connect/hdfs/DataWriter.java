@@ -204,7 +204,7 @@ public class DataWriter {
         ticketRenewThread.start();
       }
 
-      url = connectorConfig.getString(HdfsSinkConnectorConfig.HDFS_URL_CONFIG);
+      url = getStoreURL(connectorConfig);
       topicsDir = connectorConfig.getString(StorageCommonConfig.TOPICS_DIR_CONFIG);
 
       @SuppressWarnings("unchecked")
@@ -341,6 +341,15 @@ public class DataWriter {
     } catch (IOException e) {
       throw new ConnectException(e);
     }
+  }
+
+  // Need this because of Checkstyle's NPathComplexity warning
+  private String getStoreURL(HdfsSinkConnectorConfig connectorConfig) {
+    String url = connectorConfig.getString(StorageCommonConfig.STORE_URL_CONFIG);
+    if (url == null || url.equals(StorageCommonConfig.STORE_URL_DEFAULT)) {
+      url = connectorConfig.getString(HdfsSinkConnectorConfig.HDFS_URL_CONFIG);
+    }
+    return url;
   }
 
   public void write(Collection<SinkRecord> records) {
