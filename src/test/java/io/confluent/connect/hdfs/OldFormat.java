@@ -97,6 +97,21 @@ public class OldFormat implements Format {
       public void alterSchema(String s, String s1, Schema schema) {
         // Intentionally empty
       }
+
+      @Override
+      public String getSerde() {
+        return null;
+      }
+
+      @Override
+      public String getInputFormat() {
+        return null;
+      }
+
+      @Override
+      public String getOutputFormat() {
+        return null;
+      }
     };
   }
 }

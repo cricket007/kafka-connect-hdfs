@@ -17,8 +17,7 @@
 package io.confluent.connect.hdfs.avro;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import io.confluent.connect.storage.common.StorageCommonConfig;
-import org.apache.kafka.common.config.AbstractConfig;
+import io.confluent.connect.hdfs.HdfsSinkConnectorConfig;
 
 import io.confluent.connect.avro.AvroData;
 import io.confluent.connect.hdfs.hive.HiveMetaStore;
@@ -32,11 +31,10 @@ public class AvroHiveFactory extends io.confluent.connect.storage.hive.avro.Avro
   }
 
   @Deprecated
-  public io.confluent.connect.storage.hive.avro.AvroHiveUtil createHiveUtil(
-      AbstractConfig conf,
+  public AvroHiveUtil createHiveUtil(
+      HdfsSinkConnectorConfig conf,
       HiveMetaStore hiveMetaStore
   ) {
-    return new io.confluent.connect.storage.hive.avro
-            .AvroHiveUtil((StorageCommonConfig) conf, avroData, hiveMetaStore);
+    return new AvroHiveUtil(conf.getStorageCommonConfig(), avroData, hiveMetaStore);
   }
 }

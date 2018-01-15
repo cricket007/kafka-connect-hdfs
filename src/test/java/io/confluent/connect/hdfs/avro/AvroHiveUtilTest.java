@@ -14,12 +14,11 @@
 
 package io.confluent.connect.hdfs.avro;
 
-import io.confluent.connect.hdfs.hive.HiveUtil;
-import io.confluent.connect.storage.StorageSinkConnectorConfig;
+import io.confluent.connect.storage.hive.HiveUtil;
+import io.confluent.connect.storage.hive.avro.AvroHiveUtil;
 import org.apache.hadoop.hive.metastore.api.FieldSchema;
 import org.apache.hadoop.hive.ql.metadata.Table;
 import org.apache.kafka.common.TopicPartition;
-import org.apache.kafka.common.config.AbstractConfig;
 import org.apache.kafka.connect.data.Field;
 import org.apache.kafka.connect.data.Schema;
 import org.apache.kafka.connect.data.Struct;
@@ -41,7 +40,7 @@ import io.confluent.connect.hdfs.partitioner.Partitioner;
 import static org.junit.Assert.assertEquals;
 
 public class AvroHiveUtilTest extends HiveTestBase {
-  private io.confluent.connect.storage.hive.HiveUtil hive;
+  private HiveUtil hive;
   private Map<String, String> localProps = new HashMap<>();
 
   @Override

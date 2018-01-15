@@ -302,6 +302,21 @@ public class DataWriter {
             public void alterSchema(String database, String tableName, Schema schema) {
               newHiveUtil.alterSchema(database, tableName, schema);
             }
+
+            @Override
+            public String getSerde() {
+              return newHiveUtil.getSerde();
+            }
+
+            @Override
+            public String getInputFormat() {
+              return newHiveUtil.getInputFormat();
+            }
+
+            @Override
+            public String getOutputFormat() {
+              return newHiveUtil.getOutputFormat();
+            }
           };
         } else {
           throw new ConnectException("One of old or new format classes must be provided");

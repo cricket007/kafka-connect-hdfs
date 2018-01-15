@@ -36,7 +36,7 @@ import io.confluent.connect.hdfs.DataWriter;
 import io.confluent.connect.hdfs.HdfsSinkConnectorConfig;
 import io.confluent.connect.hdfs.hive.HiveTestBase;
 import io.confluent.connect.hdfs.hive.HiveTestUtils;
-import io.confluent.connect.hdfs.hive.HiveUtil;
+import io.confluent.connect.storage.hive.HiveUtil;
 import io.confluent.connect.hdfs.partitioner.Partitioner;
 
 import static org.junit.Assert.assertEquals;

@@ -20,16 +20,16 @@ import org.apache.kafka.common.config.AbstractConfig;
 
 import io.confluent.connect.hdfs.HdfsSinkConnectorConfig;
 import io.confluent.connect.storage.hive.HiveFactory;
-import io.confluent.connect.hdfs.hive.HiveMetaStore;
+import io.confluent.connect.storage.hive.HiveMetaStore;
 import io.confluent.connect.storage.hive.HiveUtil;
 
 public class ParquetHiveFactory implements HiveFactory {
   @Override
   public HiveUtil createHiveUtil(
       AbstractConfig config,
-      io.confluent.connect.storage.hive.HiveMetaStore hiveMetaStore
+      HiveMetaStore hiveMetaStore
   ) {
-    return createHiveUtil((HdfsSinkConnectorConfig) config, (HiveMetaStore) hiveMetaStore);
+    return createHiveUtil((HdfsSinkConnectorConfig) config, hiveMetaStore);
   }
 
   @Deprecated
