@@ -16,31 +16,27 @@
 
 package io.confluent.connect.hdfs.avro;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.confluent.connect.storage.common.StorageCommonConfig;
 import org.apache.kafka.common.config.AbstractConfig;
 
 import io.confluent.connect.avro.AvroData;
-import io.confluent.connect.hdfs.HdfsSinkConnectorConfig;
 import io.confluent.connect.hdfs.hive.HiveMetaStore;
-import io.confluent.connect.hdfs.hive.HiveUtil;
-import io.confluent.connect.storage.hive.HiveFactory;
 
-public class AvroHiveFactory implements HiveFactory {
-  private final AvroData avroData;
+@Deprecated
+@SuppressFBWarnings("NM_SAME_SIMPLE_NAME_AS_SUPERCLASS")
+public class AvroHiveFactory extends io.confluent.connect.storage.hive.avro.AvroHiveFactory {
 
   public AvroHiveFactory(AvroData avroData) {
-    this.avroData = avroData;
-  }
-
-  @Override
-  public io.confluent.connect.storage.hive.HiveUtil createHiveUtil(
-      AbstractConfig conf,
-      io.confluent.connect.storage.hive.HiveMetaStore hiveMetaStore
-  ) {
-    return createHiveUtil((HdfsSinkConnectorConfig) conf, (HiveMetaStore) hiveMetaStore);
+    super(avroData);
   }
 
   @Deprecated
-  public HiveUtil createHiveUtil(HdfsSinkConnectorConfig conf, HiveMetaStore hiveMetaStore) {
-    return new AvroHiveUtil(conf, avroData, hiveMetaStore);
+  public io.confluent.connect.storage.hive.avro.AvroHiveUtil createHiveUtil(
+      AbstractConfig conf,
+      HiveMetaStore hiveMetaStore
+  ) {
+    return new io.confluent.connect.storage.hive.avro
+            .AvroHiveUtil((StorageCommonConfig) conf, avroData, hiveMetaStore);
   }
 }

@@ -14,9 +14,12 @@
 
 package io.confluent.connect.hdfs.avro;
 
+import io.confluent.connect.hdfs.hive.HiveUtil;
+import io.confluent.connect.storage.StorageSinkConnectorConfig;
 import org.apache.hadoop.hive.metastore.api.FieldSchema;
 import org.apache.hadoop.hive.ql.metadata.Table;
 import org.apache.kafka.common.TopicPartition;
+import org.apache.kafka.common.config.AbstractConfig;
 import org.apache.kafka.connect.data.Field;
 import org.apache.kafka.connect.data.Schema;
 import org.apache.kafka.connect.data.Struct;
@@ -33,13 +36,12 @@ import io.confluent.connect.avro.AvroData;
 import io.confluent.connect.hdfs.DataWriter;
 import io.confluent.connect.hdfs.hive.HiveTestBase;
 import io.confluent.connect.hdfs.hive.HiveTestUtils;
-import io.confluent.connect.hdfs.hive.HiveUtil;
 import io.confluent.connect.hdfs.partitioner.Partitioner;
 
 import static org.junit.Assert.assertEquals;
 
 public class AvroHiveUtilTest extends HiveTestBase {
-  private HiveUtil hive;
+  private io.confluent.connect.storage.hive.HiveUtil hive;
   private Map<String, String> localProps = new HashMap<>();
 
   @Override
@@ -52,7 +54,7 @@ public class AvroHiveUtilTest extends HiveTestBase {
   //@Before should be omitted in order to be able to add properties per test.
   public void setUp() throws Exception {
     super.setUp();
-    hive = new AvroHiveUtil(connectorConfig, avroData, hiveMetaStore);
+    hive = new AvroHiveUtil(connectorConfig.getStorageCommonConfig(), avroData, hiveMetaStore);
   }
 
   @Test

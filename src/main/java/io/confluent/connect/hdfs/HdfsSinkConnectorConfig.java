@@ -117,7 +117,6 @@ public class HdfsSinkConnectorConfig extends StorageSinkConnectorConfig {
       new BooleanParentRecommender(
           HDFS_AUTHENTICATION_KERBEROS_CONFIG);
 
-  private static final GenericRecommender STORAGE_CLASS_RECOMMENDER = new GenericRecommender();
   private static final GenericRecommender FORMAT_CLASS_RECOMMENDER = new GenericRecommender();
   private static final GenericRecommender PARTITIONER_CLASS_RECOMMENDER = new GenericRecommender();
   private static final ParentValueRecommender AVRO_COMPRESSION_RECOMMENDER
@@ -287,7 +286,6 @@ public class HdfsSinkConnectorConfig extends StorageSinkConnectorConfig {
   }
 
   private final String name;
-  private final StorageCommonConfig commonConfig;
   private final HiveConfig hiveConfig;
   private final PartitionerConfig partitionerConfig;
   private final Map<String, ComposableConfig> propertyToConfig = new HashMap<>();
@@ -300,8 +298,6 @@ public class HdfsSinkConnectorConfig extends StorageSinkConnectorConfig {
 
   protected HdfsSinkConnectorConfig(ConfigDef configDef, Map<String, String> props) {
     super(configDef, props);
-    ConfigDef storageCommonConfigDef = StorageCommonConfig.newConfigDef(STORAGE_CLASS_RECOMMENDER);
-    commonConfig = new StorageCommonConfig(storageCommonConfigDef, originalsStrings());
     hiveConfig = new HiveConfig(originalsStrings());
     ConfigDef partitionerConfigDef = PartitionerConfig.newConfigDef(PARTITIONER_CLASS_RECOMMENDER);
     partitionerConfig = new PartitionerConfig(partitionerConfigDef, originalsStrings());
